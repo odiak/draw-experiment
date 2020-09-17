@@ -1,3 +1,5 @@
+const palmRejectionEnabled = 'touchType' in Touch.prototype
+
 const canvas = document.getElementById('canvas') as HTMLCanvasElement
 const dpr = devicePixelRatio
 
@@ -47,7 +49,7 @@ function tick() {
 
 function getTouch(event: TouchEvent): Touch | null {
   for (const touch of Array.from(event.changedTouches)) {
-    if (touch.touchType === 'stylus') {
+    if (!palmRejectionEnabled || touch.touchType === 'stylus') {
       return touch
     }
   }
